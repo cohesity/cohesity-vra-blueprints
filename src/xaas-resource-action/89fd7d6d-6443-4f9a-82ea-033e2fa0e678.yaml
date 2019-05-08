@@ -1,0 +1,481 @@
+id:
+  id: "89fd7d6d-6443-4f9a-82ea-033e2fa0e678"
+workflowId: "676abe50-2624-411c-b878-3736fc426446"
+name: "CS - Restore Virtual Machine"
+description: "Restore cohesity virtual machine."
+catalogRequestInfoHidden: true
+forms:
+- id: "1f440aed-b161-4325-9b1f-49c8a118bcb7"
+  form:
+    name: "Action form"
+    designerLayout:
+      pages:
+      - id: "step0"
+        label: "Select Cohesity Endpoint and Backup Candidate"
+        state:
+          dependencies: []
+          facets:
+          - type: "visible"
+            value:
+              type: "constantClause"
+              value:
+                type: "boolean"
+                value: true
+        sections:
+        - id: "__ASD_PRESENTATION_INSTANCE_SECTION"
+          designerHidden: true
+          state:
+            dependencies: []
+            facets:
+            - type: "visible"
+              value:
+                type: "constantClause"
+                value:
+                  type: "boolean"
+                  value: false
+          rows:
+          - items:
+            - type: "field"
+              size: 2
+              id: "__ASD_PRESENTATION_INSTANCE"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              state:
+                dependencies: []
+                facets:
+                - type: "derivedValue"
+                  value:
+                    type: "callback"
+                - type: "visible"
+                  value:
+                    type: "constantClause"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 0
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+        - designerHidden: false
+          state:
+            dependencies: []
+            facets: []
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "connection"
+              label: "Cohesity Endpoint"
+              description: "Cohesity Endpoint"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:CohesityConnection"
+                label: "CS:CohesityConnection"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "isRestorable"
+              label: "Is Restorable?"
+              description: "Can the VM be restored?"
+              dataType:
+                type: "primitive"
+                typeId: "BOOLEAN"
+              displayAdvice: "YES_NO"
+              state:
+                dependencies: []
+                facets:
+                - type: "derivedValue"
+                  value:
+                    type: "externalValue"
+                    dynamicValueProviderInfo:
+                      providerEntityId: "com.cohesity.plugin.protectionSources/isVMRestorable"
+                      parameterMappings:
+                        params:
+                        - key: "vm"
+                          value:
+                            type: "path"
+                            path: "vm"
+                        - key: "connection"
+                          value:
+                            type: "path"
+                            path: "connection"
+                - type: "readOnly"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: true
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "backupCandidates"
+              label: "Backup Candidates"
+              description: "Backup Candidates"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:ObjectResource"
+                label: "CS:ObjectResource"
+              displayAdvice: "SEARCHER"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "derivedValue"
+                  value:
+                    type: "externalValue"
+                    dynamicValueProviderInfo:
+                      providerEntityId: "com.cohesity.plugin.protectionSources/getRestoreBackupCandidateForVM"
+                      parameterMappings:
+                        params:
+                        - key: "vm"
+                          value:
+                            type: "path"
+                            path: "vm"
+                        - key: "connection"
+                          value:
+                            type: "path"
+                            path: "connection"
+                - type: "readOnly"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+      - id: "step1"
+        label: "Selection Restore Properties"
+        state:
+          dependencies: []
+          facets:
+          - type: "visible"
+            value:
+              type: "constantClause"
+              value:
+                type: "boolean"
+                value: true
+        sections:
+        - designerHidden: false
+          state:
+            dependencies: []
+            facets: []
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "protectionJobs"
+              label: "Protection Job"
+              description: "Protection Job"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:ProtectionJobNameResource"
+                label: "CS:ProtectionJobNameResource"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "snapshots"
+              label: "Snapshots"
+              description: "Snapshots"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "machinePrefix"
+              label: "Machine Prefix"
+              description: "Machine Prefix"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "machineSuffix"
+              label: "Machine Suffix"
+              description: "Machine Suffix"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "poweredOn"
+              label: "Power On Machine"
+              description: "Power On Machine"
+              dataType:
+                type: "primitive"
+                typeId: "BOOLEAN"
+              displayAdvice: "YES_NO"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+  scenario:
+    usageClass: "SubmitUsage"
+    id: "Resource.Action.Submit"
+status: "PUBLISHED"
+statusName: "Published"
+version:
+  version: "1.0.0"
+  major: 1
+  minor: 0
+  micro: 0
+inputParameter:
+  id: "a840d09b-6c9c-4542-8416-c2dcfbae7fa2"
+  name: "vm"
+  resourceType:
+    id:
+      id: "44abef56-cf23-492c-8e54-62850fd8b751"
+      tenant: "_internal"
+    name: "IaaS VC VirtualMachine"
+    description: "IaaS vCenter Virtual Machine"
+    vcoType: "VC:VirtualMachine"
+    tenantId: "_internal"
+    providerId: "asd.external"
+    externalTypeId: "Infrastructure.Virtual"
+    mappingWorkflowId: "425bcb81-3a41-4f3e-be36-35d47f934732"
+    mappingScriptActionFqn: "com.vmware.vcac.asd.mappings/mapToVCVM"
+    targetCriteria:
+      type: "expression"
+      operator:
+        type: "equals"
+      leftOperand:
+        type: "path"
+        path: "provider-MachineInterfaceType"
+      rightOperand:
+        type: "constant"
+        value:
+          type: "string"
+          value: "vSphere"
+    version:
+      version: "0.0.0"
+      major: 0
+      minor: 0
+      micro: 0
+    builtIn: true
+disposal: false
+targetCriteria:
+  type: "constantClause"
+  value:
+    type: "boolean"
+    value: true
+builtIn: false

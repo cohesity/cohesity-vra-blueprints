@@ -1,0 +1,27 @@
+id: "com.cohesity.endpointName"
+label: "Cohesity Endpoint Name"
+dataType:
+  type: "primitive"
+  typeId: "STRING"
+isMultiValued: false
+displayAdvice: "DROPDOWN"
+orderIndex: 1
+permissibleValues:
+  type: "dynamic"
+  customAllowed: false
+  context:
+    providerEntityId: "com.cohesity.plugin.configuration/getCohesityEndpointNames"
+  dependencies: []
+facets:
+  mandatory:
+    type: "constant"
+    value:
+      type: "boolean"
+      value: true
+  encrypted:
+    type: "constant"
+    value:
+      type: "boolean"
+      value: false
+createdDate: "2019-04-15T08:46:19.636Z"
+lastUpdated: "2019-04-15T08:46:19.636Z"

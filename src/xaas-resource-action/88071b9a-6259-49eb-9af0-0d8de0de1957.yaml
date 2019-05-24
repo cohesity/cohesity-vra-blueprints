@@ -1,7 +1,7 @@
 id:
   id: "88071b9a-6259-49eb-9af0-0d8de0de1957"
 workflowId: "83ad138d-081f-48c7-8f54-9712dd6dabef"
-name: "CS - Clone Machine"
+name: "Cohesity - Clone Machine"
 description: "This is the workflow to clone virtual machine."
 catalogRequestInfoHidden: true
 forms:
@@ -44,18 +44,18 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
                 - type: "derivedValue"
                   value:
                     type: "callback"
                 - type: "visible"
                   value:
                     type: "constantClause"
-                    value:
-                      type: "boolean"
-                      value: false
-                - type: "editable"
-                  value:
-                    type: "constant"
                     value:
                       type: "boolean"
                       value: false
@@ -136,6 +136,12 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
                 - type: "derivedValue"
                   value:
                     type: "externalValue"
@@ -152,12 +158,6 @@ forms:
                             type: "path"
                             path: "connection"
                 - type: "readOnly"
-                  value:
-                    type: "constant"
-                    value:
-                      type: "boolean"
-                      value: true
-                - type: "editable"
                   value:
                     type: "constant"
                     value:

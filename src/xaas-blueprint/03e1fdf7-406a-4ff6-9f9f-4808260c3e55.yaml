@@ -44,18 +44,18 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
                 - type: "derivedValue"
                   value:
                     type: "callback"
                 - type: "visible"
                   value:
                     type: "constantClause"
-                    value:
-                      type: "boolean"
-                      value: false
-                - type: "editable"
-                  value:
-                    type: "constant"
                     value:
                       type: "boolean"
                       value: false
@@ -244,6 +244,18 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
                 - type: "derivedValue"
                   value:
                     type: "path"
@@ -254,18 +266,6 @@ forms:
                     value:
                       type: "boolean"
                       value: false
-                - type: "editable"
-                  value:
-                    type: "constant"
-                    value:
-                      type: "boolean"
-                      value: true
-                - type: "refreshOnChange"
-                  value:
-                    type: "constant"
-                    value:
-                      type: "boolean"
-                      value: true
               initialStaticState:
                 dependencies: []
                 facets: []

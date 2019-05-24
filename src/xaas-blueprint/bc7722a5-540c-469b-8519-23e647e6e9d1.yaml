@@ -44,18 +44,18 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
                 - type: "derivedValue"
                   value:
                     type: "callback"
                 - type: "visible"
                   value:
                     type: "constantClause"
-                    value:
-                      type: "boolean"
-                      value: false
-                - type: "editable"
-                  value:
-                    type: "constant"
                     value:
                       type: "boolean"
                       value: false
@@ -237,7 +237,7 @@ forms:
                 componentTypeId: "com.vmware.csp.core.designer.service"
                 classId: "VC:VirtualMachine"
                 label: "VC:VirtualMachine"
-              displayAdvice: "SEARCHER"
+              displayAdvice: "LIST"
               permissibleValues:
                 type: "dynamic"
                 customAllowed: false
@@ -245,28 +245,28 @@ forms:
               state:
                 dependencies: []
                 facets:
-                - type: "derivedValue"
-                  value:
-                    type: "path"
-                    path: "vmParam"
-                - type: "visible"
-                  value:
-                    type: "constant"
-                    value:
-                      type: "boolean"
-                      value: false
                 - type: "editable"
                   value:
                     type: "constant"
                     value:
                       type: "boolean"
                       value: true
+                - type: "derivedValue"
+                  value:
+                    type: "path"
+                    path: "vmParam"
                 - type: "mandatory"
                   value:
                     type: "constant"
                     value:
                       type: "boolean"
                       value: true
+                - type: "visible"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
               initialStaticState:
                 dependencies: []
                 facets: []

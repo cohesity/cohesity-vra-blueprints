@@ -1,7 +1,7 @@
 id:
   id: "c18c6921-7a4b-46a6-ac8f-d753203a627d"
 workflowId: "10e2e6e2-3181-4761-8ff6-6283981fd46a"
-name: "CS - Change Protection Job"
+name: "Cohesity - Change Protection Job"
 description: "Move VM from one Protection Job to new Protection Job"
 catalogRequestInfoHidden: true
 forms:
@@ -44,18 +44,18 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
                 - type: "derivedValue"
                   value:
                     type: "callback"
                 - type: "visible"
                   value:
                     type: "constantClause"
-                    value:
-                      type: "boolean"
-                      value: false
-                - type: "editable"
-                  value:
-                    type: "constant"
                     value:
                       type: "boolean"
                       value: false
@@ -148,6 +148,12 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
                 - type: "derivedValue"
                   value:
                     type: "externalValue"
@@ -164,12 +170,6 @@ forms:
                             type: "path"
                             path: "connection"
                 - type: "readOnly"
-                  value:
-                    type: "constant"
-                    value:
-                      type: "boolean"
-                      value: true
-                - type: "editable"
                   value:
                     type: "constant"
                     value:

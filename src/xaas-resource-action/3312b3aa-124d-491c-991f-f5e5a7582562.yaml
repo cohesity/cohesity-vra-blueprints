@@ -1,7 +1,7 @@
 id:
   id: "3312b3aa-124d-491c-991f-f5e5a7582562"
 workflowId: "e8cc20c5-5ba0-4666-a6ec-ca82adafe88e"
-name: "CS - Recover Files/Folders"
+name: "Cohesity - Recover Files/Folders"
 description: "This is the workflow to restore selected files or folders."
 catalogRequestInfoHidden: true
 forms:
@@ -44,18 +44,18 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
                 - type: "derivedValue"
                   value:
                     type: "callback"
                 - type: "visible"
                   value:
                     type: "constantClause"
-                    value:
-                      type: "boolean"
-                      value: false
-                - type: "editable"
-                  value:
-                    type: "constant"
                     value:
                       type: "boolean"
                       value: false
@@ -128,6 +128,12 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
                 - type: "derivedValue"
                   value:
                     type: "externalValue"
@@ -140,12 +146,6 @@ forms:
                             type: "path"
                             path: "vm"
                 - type: "readOnly"
-                  value:
-                    type: "constant"
-                    value:
-                      type: "boolean"
-                      value: true
-                - type: "editable"
                   value:
                     type: "constant"
                     value:
@@ -174,6 +174,12 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
                 - type: "derivedValue"
                   value:
                     type: "externalValue"
@@ -190,12 +196,6 @@ forms:
                             type: "path"
                             path: "connection"
                 - type: "readOnly"
-                  value:
-                    type: "constant"
-                    value:
-                      type: "boolean"
-                      value: true
-                - type: "editable"
                   value:
                     type: "constant"
                     value:
@@ -230,6 +230,18 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
                 - type: "derivedValue"
                   value:
                     type: "externalValue"
@@ -245,25 +257,13 @@ forms:
                           value:
                             type: "path"
                             path: "connection"
-                - type: "readOnly"
-                  value:
-                    type: "constant"
-                    value:
-                      type: "boolean"
-                      value: true
-                - type: "editable"
-                  value:
-                    type: "constant"
-                    value:
-                      type: "boolean"
-                      value: true
                 - type: "mandatory"
                   value:
                     type: "constant"
                     value:
                       type: "boolean"
                       value: true
-                - type: "refreshOnChange"
+                - type: "readOnly"
                   value:
                     type: "constant"
                     value:

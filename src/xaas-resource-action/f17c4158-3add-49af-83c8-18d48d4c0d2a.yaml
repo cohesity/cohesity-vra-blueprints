@@ -1,7 +1,7 @@
 id:
   id: "f17c4158-3add-49af-83c8-18d48d4c0d2a"
 workflowId: "e86b3bb7-5696-4d48-876e-a7bc2568ca57"
-name: "CS - Remove From Protection Job"
+name: "Cohesity - Remove From Protection Job"
 description: "Removes Virtual Machine from the Protecion Job"
 catalogRequestInfoHidden: true
 forms:
@@ -44,18 +44,18 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
                 - type: "derivedValue"
                   value:
                     type: "callback"
                 - type: "visible"
                   value:
                     type: "constantClause"
-                    value:
-                      type: "boolean"
-                      value: false
-                - type: "editable"
-                  value:
-                    type: "constant"
                     value:
                       type: "boolean"
                       value: false
@@ -149,6 +149,12 @@ forms:
               state:
                 dependencies: []
                 facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
                 - type: "derivedValue"
                   value:
                     type: "externalValue"
@@ -165,12 +171,6 @@ forms:
                             type: "path"
                             path: "connection"
                 - type: "readOnly"
-                  value:
-                    type: "constant"
-                    value:
-                      type: "boolean"
-                      value: true
-                - type: "editable"
                   value:
                     type: "constant"
                     value:

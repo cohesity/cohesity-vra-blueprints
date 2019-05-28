@@ -1,0 +1,137 @@
+id: "SubscriptionCycle"
+label: "Subscription Cycle"
+properties:
+  Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.BuildingMachine:
+    facets:
+      visibility:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      encrypted:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      mandatory:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      defaultValue:
+        type: "constant"
+        value:
+          type: "string"
+          value: "*"
+  Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.MachineProvisioned:
+    facets:
+      visibility:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      encrypted:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      mandatory:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      defaultValue:
+        type: "constant"
+        value:
+          type: "string"
+          value: "*"
+  Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.Disposing:
+    facets:
+      visibility:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      encrypted:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      mandatory:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      defaultValue:
+        type: "constant"
+        value:
+          type: "string"
+          value: "*"
+  Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.Requested:
+    facets:
+      visibility:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      encrypted:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      mandatory:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      defaultValue:
+        type: "constant"
+        value:
+          type: "string"
+          value: "*"
+  Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.MachineActivated:
+    facets:
+      visibility:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      encrypted:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      mandatory:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      defaultValue:
+        type: "constant"
+        value:
+          type: "string"
+          value: "*"
+  Extensibility.Lifecycle.Properties.VMPSMasterWorkflow32.UnprovisionMachine:
+    facets:
+      visibility:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      encrypted:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      mandatory:
+        type: "constant"
+        value:
+          type: "boolean"
+          value: false
+      defaultValue:
+        type: "constant"
+        value:
+          type: "string"
+          value: "*"
+createdDate: "2019-05-09T06:54:32.895Z"
+lastUpdated: "2019-05-09T06:54:32.895Z"

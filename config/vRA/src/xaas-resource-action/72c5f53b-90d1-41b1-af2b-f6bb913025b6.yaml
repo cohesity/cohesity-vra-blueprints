@@ -1,0 +1,319 @@
+id:
+  id: "72c5f53b-90d1-41b1-af2b-f6bb913025b6"
+workflowId: "08ecaf18-eee6-4dd5-8acb-16527b4153ea"
+name: "Cohesity - Create Snapshot"
+description: "Run Protection Job for the VM on Demand"
+catalogRequestInfoHidden: true
+forms:
+- id: "19859fe0-42d0-4f92-af88-caf4e9999f28"
+  form:
+    name: "Action form"
+    designerLayout:
+      pages:
+      - id: "step0"
+        label: "Run Protection Job On Demand"
+        state:
+          dependencies: []
+          facets:
+          - type: "visible"
+            value:
+              type: "constantClause"
+              value:
+                type: "boolean"
+                value: true
+        sections:
+        - id: "__ASD_PRESENTATION_INSTANCE_SECTION"
+          designerHidden: true
+          state:
+            dependencies: []
+            facets:
+            - type: "visible"
+              value:
+                type: "constantClause"
+                value:
+                  type: "boolean"
+                  value: false
+          rows:
+          - items:
+            - type: "field"
+              size: 2
+              id: "__ASD_PRESENTATION_INSTANCE"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "derivedValue"
+                  value:
+                    type: "callback"
+                - type: "visible"
+                  value:
+                    type: "constantClause"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 0
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+        - id: "step0_group0"
+          label: "Select Endpoint"
+          designerHidden: false
+          state:
+            dependencies: []
+            facets:
+            - type: "visible"
+              value:
+                type: "constantClause"
+                value:
+                  type: "boolean"
+                  value: true
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "connection"
+              label: "Cohesity Endpoint"
+              description: "Cohesity Endpoint"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:CohesityConnection"
+                label: "CS:CohesityConnection"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+        - id: "step0_group1"
+          label: "Select Cohesity Parameters"
+          designerHidden: false
+          state:
+            dependencies: []
+            facets:
+            - type: "visible"
+              value:
+                type: "constantClause"
+                value:
+                  type: "boolean"
+                  value: true
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "isVMProtected"
+              label: "VM Protected"
+              description: "VM must be associated with a protection job before creating\
+                \ a snapshot."
+              dataType:
+                type: "primitive"
+                typeId: "BOOLEAN"
+              displayAdvice: "YES_NO"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "derivedValue"
+                  value:
+                    type: "externalValue"
+                    dynamicValueProviderInfo:
+                      providerEntityId: "com.cohesity.plugin.protectionJob/isVMProtected"
+                      parameterMappings:
+                        params:
+                        - key: "vm"
+                          value:
+                            type: "path"
+                            path: "vm"
+                        - key: "connection"
+                          value:
+                            type: "path"
+                            path: "connection"
+                - type: "readOnly"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: true
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "protectionJob"
+              label: "Protection Job"
+              description: "Protection Job"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:ProtectionJob"
+                label: "CS:ProtectionJob"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "runType"
+              label: "Run Type (Specify the type of backup.)"
+              description: "Run Type (Specify the type of backup.)"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+  scenario:
+    usageClass: "SubmitUsage"
+    id: "Resource.Action.Submit"
+status: "PUBLISHED"
+statusName: "Published"
+version:
+  version: "1.0.0"
+  major: 1
+  minor: 0
+  micro: 0
+inputParameter:
+  id: "8f2c3c80-91ff-4ecb-9410-186f6065a9eb"
+  name: "vm"
+  resourceType:
+    id:
+      id: "44abef56-cf23-492c-8e54-62850fd8b751"
+      tenant: "_internal"
+    name: "IaaS VC VirtualMachine"
+    description: "IaaS vCenter Virtual Machine"
+    vcoType: "VC:VirtualMachine"
+    tenantId: "_internal"
+    providerId: "asd.external"
+    externalTypeId: "Infrastructure.Virtual"
+    mappingWorkflowId: "425bcb81-3a41-4f3e-be36-35d47f934732"
+    mappingScriptActionFqn: "com.vmware.vcac.asd.mappings/mapToVCVM"
+    targetCriteria:
+      type: "expression"
+      operator:
+        type: "equals"
+      leftOperand:
+        type: "path"
+        path: "provider-MachineInterfaceType"
+      rightOperand:
+        type: "constant"
+        value:
+          type: "string"
+          value: "vSphere"
+    version:
+      version: "0.0.0"
+      major: 0
+      minor: 0
+      micro: 0
+    builtIn: true
+disposal: false
+targetCriteria:
+  type: "constantClause"
+  value:
+    type: "boolean"
+    value: true
+builtIn: false

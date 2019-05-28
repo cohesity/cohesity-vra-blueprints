@@ -1,0 +1,902 @@
+id:
+  id: "7934ba3e-f7e8-404c-9b7e-2977b7ff4015"
+workflowId: "48aa8942-ac2f-4967-949d-8d4dea7fdbfa"
+name: "Recover Files or Folders"
+description: "This is the workflow to restore selected files or folders."
+catalogRequestInfoHidden: true
+forms:
+- id: "f13c14f0-943b-4b23-8716-87ff0114399d"
+  form:
+    name: "Request form"
+    designerLayout:
+      pages:
+      - id: "step0"
+        label: "Select Cohesity Endpoint and Backup Candidate"
+        state:
+          dependencies: []
+          facets:
+          - type: "visible"
+            value:
+              type: "constantClause"
+              value:
+                type: "boolean"
+                value: true
+        sections:
+        - id: "__ASD_PRESENTATION_INSTANCE_SECTION"
+          designerHidden: true
+          state:
+            dependencies: []
+            facets:
+            - type: "visible"
+              value:
+                type: "constantClause"
+                value:
+                  type: "boolean"
+                  value: false
+          rows:
+          - items:
+            - type: "field"
+              size: 2
+              id: "__ASD_PRESENTATION_INSTANCE"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "derivedValue"
+                  value:
+                    type: "callback"
+                - type: "visible"
+                  value:
+                    type: "constantClause"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 0
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+        - designerHidden: false
+          state:
+            dependencies: []
+            facets: []
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "connection"
+              label: "Cohesity Endpoint"
+              description: "Cohesity Endpoint"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:CohesityConnection"
+                label: "CS:CohesityConnection"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "vmName"
+              label: "Search Virtual Machine Name"
+              description: "Search Virtual Machine Name"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "backupCandidates"
+              label: "Backup Candidates"
+              description: "Backup Candidates"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:ObjectResource"
+                label: "CS:ObjectResource"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "protectionJobs"
+              label: "Protection Job"
+              description: "Protection Job"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:ProtectionJobNameResource"
+                label: "CS:ProtectionJobNameResource"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "osType"
+              label: "OS Type"
+              description: "OS Type"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "userName"
+              label: "User Name(Virtual Machine Credentials)"
+              description: "User Name(Virtual Machine Credentials)"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "passWord"
+              label: "Password(Virtual Machine Credentials)"
+              description: "Password(Virtual Machine Credentials)"
+              dataType:
+                type: "primitive"
+                typeId: "SECURE_STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+      - id: "step1"
+        label: "Selection Recover Properties"
+        state:
+          dependencies: []
+          facets:
+          - type: "visible"
+            value:
+              type: "constantClause"
+              value:
+                type: "boolean"
+                value: true
+        sections:
+        - designerHidden: false
+          state:
+            dependencies: []
+            facets: []
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "folderOnly"
+              label: "Files or Folders"
+              description: "Files or Folders"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "filesOrFoldersName"
+              label: "Search Files or Folders Name"
+              description: "Search Files or Folders Name"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "filesBackupCandidates"
+              label: "Files Backup Candidates"
+              description: "Files Backup Candidates"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:FilesOrFoldersResource"
+                label: "CS:FilesOrFoldersResource"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "fileSnapshots"
+              label: "File Snapshots"
+              description: "File Snapshots"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "recoverToOriginalLocation"
+              label: "Recover to Original Location"
+              description: "Recover to Original Location"
+              dataType:
+                type: "primitive"
+                typeId: "BOOLEAN"
+              displayAdvice: "YES_NO"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "recoverTo"
+              label: "Recover To"
+              description: "Recover To"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "overwriteExistingFileOrFolder"
+              label: "Overwrite Existing File/Folder"
+              description: "Overwrite Existing File/Folder"
+              dataType:
+                type: "primitive"
+                typeId: "BOOLEAN"
+              displayAdvice: "YES_NO"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "continueOnError"
+              label: "Continue On Error"
+              description: "Continue On Error"
+              dataType:
+                type: "primitive"
+                typeId: "BOOLEAN"
+              displayAdvice: "YES_NO"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "preserveAttributes"
+              label: "Preserve Attributes"
+              description: "Preserve Attributes"
+              dataType:
+                type: "primitive"
+                typeId: "BOOLEAN"
+              displayAdvice: "YES_NO"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "sendMailNotification"
+              label: "Send Email Notification"
+              description: "Send Email Notification"
+              dataType:
+                type: "primitive"
+                typeId: "BOOLEAN"
+              displayAdvice: "YES_NO"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+      - id: "step2"
+        label: "Mail Configuration To Send Notification"
+        state:
+          dependencies: []
+          facets:
+          - type: "visible"
+            value:
+              type: "constantClause"
+              value:
+                type: "boolean"
+                value: false
+        sections:
+        - designerHidden: false
+          state:
+            dependencies: []
+            facets: []
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "mailConnection"
+              label: "Email connection"
+              description: "Email connection"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:CohesityConnection"
+                label: "CS:CohesityConnection"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "recipients"
+              label: "Recipients"
+              description: "Recipients"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: true
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "subject"
+              label: "Email Subject"
+              description: "Email Subject"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "content"
+              label: "Email Content"
+              description: "Email Content"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTAREA"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+  scenario:
+    usageClass: "SubmitUsage"
+    id: "Request.Submit"
+status: "PUBLISHED"
+statusName: "Published"
+version:
+  version: "1.0.0"
+  major: 1
+  minor: 0
+  micro: 0
+component: true
+componentConfiguration:
+  scalable: false
+  operations: []
+builtIn: false

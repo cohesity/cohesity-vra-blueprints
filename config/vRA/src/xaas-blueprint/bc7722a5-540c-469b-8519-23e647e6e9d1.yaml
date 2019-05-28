@@ -1,0 +1,349 @@
+id:
+  id: "bc7722a5-540c-469b-8519-23e647e6e9d1"
+workflowId: "733e0779-3dd4-4df1-ba5c-8f4497d57976"
+name: "Add Unprotected VM to Protection Job"
+description: "Adds an unprotected VM to given Protection Job"
+catalogRequestInfoHidden: true
+forms:
+- id: "3074aa40-baf9-4e6c-8b9c-7e5bf42e2938"
+  form:
+    name: "Request form"
+    designerLayout:
+      pages:
+      - id: "step0"
+        label: "Add VM to Protection Job"
+        state:
+          dependencies: []
+          facets:
+          - type: "visible"
+            value:
+              type: "constantClause"
+              value:
+                type: "boolean"
+                value: true
+        sections:
+        - id: "__ASD_PRESENTATION_INSTANCE_SECTION"
+          designerHidden: true
+          state:
+            dependencies: []
+            facets:
+            - type: "visible"
+              value:
+                type: "constantClause"
+                value:
+                  type: "boolean"
+                  value: false
+          rows:
+          - items:
+            - type: "field"
+              size: 2
+              id: "__ASD_PRESENTATION_INSTANCE"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+                - type: "derivedValue"
+                  value:
+                    type: "callback"
+                - type: "visible"
+                  value:
+                    type: "constantClause"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 0
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+        - id: "step0_group0"
+          label: "Select Endpoint"
+          designerHidden: false
+          state:
+            dependencies: []
+            facets:
+            - type: "visible"
+              value:
+                type: "constantClause"
+                value:
+                  type: "boolean"
+                  value: true
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "connection"
+              label: "Cohesity Endpoint"
+              description: "Cohesity Endpoint"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:CohesityConnection"
+                label: "CS:CohesityConnection"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+        - id: "step0_group1"
+          label: "Select Cohesity Parameters"
+          designerHidden: false
+          state:
+            dependencies: []
+            facets:
+            - type: "visible"
+              value:
+                type: "constantClause"
+                value:
+                  type: "boolean"
+                  value: true
+          rows:
+          - items:
+            - type: "field"
+              size: 4
+              id: "searchQuery"
+              label: "Search Query"
+              description: "Search Query"
+              dataType:
+                type: "primitive"
+                typeId: "STRING"
+              displayAdvice: "TEXTBOX"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "refreshOnChange"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: false
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "vmParam"
+              label: "Virtual Machine"
+              description: "Unprotected Virtual Machine"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "VC:VirtualMachine"
+                label: "VC:VirtualMachine"
+              displayAdvice: "LIST"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies:
+                - "searchQuery"
+                - "connection"
+              permissibleValuesContext:
+                providerEntityId: "com.cohesity.plugin.protectionSources/getAllUnprotectedVMs"
+                parameterMappings:
+                  params:
+                  - key: "pattern"
+                    value:
+                      type: "path"
+                      path: "searchQuery"
+                  - key: "connection"
+                    value:
+                      type: "path"
+                      path: "connection"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "mandatory"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: true
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "vm"
+              label: "Virtual Machine"
+              description: "Unprotected Virtual Machines"
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "VC:VirtualMachine"
+                label: "VC:VirtualMachine"
+              displayAdvice: "LIST"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies: []
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "derivedValue"
+                  value:
+                    type: "path"
+                    path: "vmParam"
+                - type: "mandatory"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "visible"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: false
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: true
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+          - items:
+            - type: "field"
+              size: 4
+              id: "protectionJob"
+              label: "Protection Job"
+              description: "Available Protection Job for the VM."
+              dataType:
+                type: "ref"
+                componentTypeId: "com.vmware.csp.core.designer.service"
+                classId: "CS:ProtectionJob"
+                label: "CS:ProtectionJob"
+              displayAdvice: "DROPDOWN"
+              permissibleValues:
+                type: "dynamic"
+                customAllowed: false
+                dependencies:
+                - "vm"
+                - "connection"
+              permissibleValuesContext:
+                providerEntityId: "com.cohesity.plugin.protectionJob/getAllNonDeletedProtectionJobObjectsforVM"
+                parameterMappings:
+                  params:
+                  - key: "vm"
+                    value:
+                      type: "path"
+                      path: "vm"
+                  - key: "connection"
+                    value:
+                      type: "path"
+                      path: "connection"
+              state:
+                dependencies: []
+                facets:
+                - type: "editable"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+                - type: "mandatory"
+                  value:
+                    type: "constant"
+                    value:
+                      type: "boolean"
+                      value: true
+              initialStaticState:
+                dependencies: []
+                facets: []
+              labelDisplaySize: 2
+              customField: true
+              staticField: false
+              refreshOnChange: false
+              isMultiValued: false
+              columns: []
+              errors: []
+  scenario:
+    usageClass: "SubmitUsage"
+    id: "Request.Submit"
+status: "PUBLISHED"
+statusName: "Published"
+version:
+  version: "1.0.0"
+  major: 1
+  minor: 0
+  micro: 0
+component: true
+componentConfiguration:
+  scalable: false
+  operations: []
+builtIn: false

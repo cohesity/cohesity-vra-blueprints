@@ -10,23 +10,25 @@ You can download the vRealize Orchestrator Plugins and workflows from [VMware So
 
 The plugin provides a list of workflows that you can access on the **Workflows** tab of the Orchestrator client. The plugin contains packages of workflows and actions that you can run on the objects in the inventory to automate the typical use cases of the integrated product.	
 
-| Custom Objects           | Workflows                            |
-| ------------------------ | ------------------------------------ |
-| Initial Configuration    | Add a Cohesity Endpoint              |
-|                          | Remove a Cohesity Endpoint           |
-|                          | Update a Cohesity Endpoint           |
-|                          | Add an Email Configuration           |
-|                          | Remove an Email Configuration        |
-|                          | Update an Email Configuration        |
-| Day-1 Workflows          | Add multiple VMs to Protection Job   |
-|                          | Remove VM from all Protection Job    |
-| Protection Job Workflows | Add Unprotected VM to Protection Job |
-|                          | Clone Virtual Machine                |
-|                          | Move VM to new Protection Job        |
-|                          | Remove VM from Protection Job        |
-|                          | Restore Virtual Machine              |
-|                          | Run Protection Job on Demand         |
-|                          | Recover Files or Folders             |
+| Custom Objects           | Workflows                                            |
+| ------------------------ | ---------------------------------------------------- |
+| Initial Configuration    | Add a Cohesity Endpoint                              |
+|                          | Remove a Cohesity Endpoint                           |
+|                          | Update a Cohesity Endpoint                           |
+|                          | Add an Email Configuration                           |
+|                          | Remove an Email Configuration                        |
+|                          | Update an Email Configuration                        |
+| Day-1 Workflows          | Add multiple VMs to Protection Job                   |
+|                          | Remove VM from all Protection Job                    |
+| Protection Job Workflows | Add Unprotected VM/Physical server to Protection Job |
+|                          | Add Protection Source                                |
+|                          | Clone Virtual Machine                                |
+|                          | Move VM to new Protection Job                        |
+|                          | Remove VM/Physical server from Protection Job        |
+|                          | Delete Protection Job                                |
+|                          | Restore Virtual Machine                              |
+|                          | Run Protection Job on Demand                         |
+|                          | Recover Files or Folders                             |
 
 ### Features
 
@@ -37,7 +39,7 @@ The vRO plugin provides an inventory of objects that you can access on the Inven
 - **Multiple Platform Support**: Management of multiple Cohesity DataPlatform setups.
 
 
-### Prerequisites
+### Software Requirements
 
 | Software              | Version      | Provider                       |
 | --------------------- | ------------ | ------------------------------ |
@@ -63,6 +65,7 @@ A snapshot of the overall process involved in using the Cohesity vRO plugin is a
 
 | Version | What's New                                                   | Revision Date |
 | ------- | ------------------------------------------------------------ | ------------- |
+| v1.0.4  | This release introduces new workflows to add/remove protection source, add/remove physical server to/from protection job and create/delete protection jobs. | Aug 2019      |
 | v1.0.2  | Second Draft of vRO plugin documentation. The document has been updated with the current procedures to execute workflows. | May 2019      |
 | v1.0.1  | First draft released.                                        | Nov 2018      |
 
@@ -79,7 +82,7 @@ A snapshot of the overall process involved in using the Cohesity vRO plugin is a
 
 This section describes the detailed steps to install the Cohesity vRO plugin.
 
-**Note**: If the Cohesity vRO plugin has already been installed and must be upgraded, you must first [remove](#removing-the-plugin) the existing plugin and then install the new Cohesity vRO plugin. 
+**Note**: If the Cohesity vRO plugin has already been installed and must be upgraded, you must first [remove](#removing-the-plugin)) the existing plugin and then install the new Cohesity vRO plugin. 
 
 ##### Procedure
 
@@ -217,14 +220,14 @@ To add an Email configuration:
 
 This section describes the details to import the XAAS blueprints. 
 
-##### Prerequites
+##### Prerequisites
 
 - Cohesity vRO Plugin - Ensure that the plugin is installed and configured on the vRO. Click [here](#installing-the-plugin) for the detailed procedure.
 - [Cloud Client](https://code.vmware.com/web/tool/4.7.0/cloudclient) - The vRealize command line utility must be available to import pre built blueprints and use cases in vRA.
 
 ##### Procedure
 
-1. Download the Cohesity vRA Blueprint file available in the [repository](https://github.com/cohesity/cohesity-vra-blueprints/tree/master/config/vRA/build).  
+1. Download the Cohesity vRA Blueprint file available in the [repository](https://github.com/cohesity/cohesity-vra-blueprints/tree/master/build).  
 2. Launch Cloud Client instance on your local system by executing `bin/cloudclient.bat (for windows) or bin/cloudclient.sh for OSX / Linux`.
    The following screen is displayed.
    ![cloudclient](docs/images/CloudClient.png)
@@ -326,10 +329,15 @@ You can execute the following actions in the Day-2 workflows. These workflows ca
 
 | Topic                                                        | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [Adding a Protection Source](#adding-a-protection-source) (XAAS) | This section describes the details to add a new physical or hypervisor type protection source. |
+| [Adding Physical Server to Protection Job](#adding-physical-server-to-protection-job) (XAAS) | This section describes the details to add a physical machine instance to a protection job |
 | [Adding an unprotected VM to protection job](#adding-an-unprotected-vm-to-protection-job) (XAAS) | This section describes the details to add an unprotected VM to a Protection Job. |
 | [Cloning a VM](#cloning-a-virtual-machine) (XAAS)            | This section describes the details to clone a Virtual Machine. |
 | [Moving a VM to a New Protection Job](#moving-a-vm-to-a-new-protection-job) (XAAS) | This section describes the details to move a VM to a new protection job. |
+| [Removing a Protection Source](#removing-a-protection-source) (XAAS) | This section describes the details to remove a VMware or a physical server as a protection source. |
+| [Removing Physical Server from Protection Job](#removing-physical-server-from-protection-job) (XAAS) | This section describes the details to to remove a physical server instance from its protection job. |
 | [Removing a VM from a Protection Job](#removing-a-vm-from-a-protection-job) (XAAS) | This section describes the details to remove a VM from a protection job. |
+| [Deleting a Protection Job](#deleting-a-protection-job) (XAAS) | This section describes the details to delete a protection job object. |
 | [Restoring a Virtual Machine](#restoring-a-virtual-machine) (XAAS) | This section describes the details to restore a Virtual Machine. |
 | [Executing a Protection Job on Demand](#executing-a-protection-job-on-demand) (XAAS) | This section describes the details to run a protection job on demand. |
 | [Recovering Files or Folders](#recovering-files-or-folders) (XAAS) | This section describes the details to recover a file or a folder. |
@@ -337,22 +345,114 @@ You can execute the following actions in the Day-2 workflows. These workflows ca
 
 **Note**: The steps to execute a protection job on demand as a XAAS and a resource action has been captured in this section. All the other workflows can also be similarly executed either as a XAAS or a resource action. 
 
+### Adding a Protection Source
+
+##### Procedure (XAAS)
+
+To add a new physical or hypervisor type protection source:
+
+1. Log in to vRA using valid credentials. The list of Catalog Items are displayed in the Catalog Dashboard.   
+   Ensure that you have the necessary **Entitlements** to **Cohesity Catalog Items**. 
+   To access **Entitlements**, in vRA go to **Administration > Catalog Management > Entitlements**. 
+
+2. Click **REQUEST** on **Add a Protection Source**.
+   ![addprotectionsource](docs/images/AddaProtectionSource.png)
+
+3. Specify the initial **Cohesity Connection** along with the **Source Type**. 
+   The Source Type can be a **Physical Server** or **Hypervisor**. 
+
+   - Physical Server:
+
+      1. On selecting a **Physical Server**, a new tab called **Physical Host Config** is displayed.
+         ![physical server](docs/images/physicalserver.png)
+
+      2. Specify the following details:
+
+         | Parameter              | Description                                                  |
+         | ---------------------- | ------------------------------------------------------------ |
+         | Hostname or IP Address | Enter the hostname or the IP address of the physical machine.<br />Note: Ensure that Cohesity agent is installed on this machine. |
+         | OS Type                | Select the appropriate OS type as Host or WindowsCluster. By default, Host is selected. |
+         | Environment            | Select the environment as Physical which is selected by default. |
+         | Physical Host          | Select the operating system of the host machine as Linux, Windows, AIX, or Solaris. |
+
+         ![physicalserveroptions](docs/images/physicalserveroptions.png)
+
+      3. Click **Submit**.
+
+   - Hypervisor:
+
+      1. On selecting **Hypervisor**, a new tab called **Hypervisor Config** is displayed. 
+         ![hypervisor](docs/images/hypervisor.png)
+
+      2. Specify the following details:
+
+         | Parameter              | Description                                                  |
+         | ---------------------- | ------------------------------------------------------------ |
+         | Environment            | Select the environment to be a VMware or a HyperV.           |
+         | Hypervisor Source Type | This option is displayed **only** if the environment is *VMware*. The hypervisor source type can be selected as VCentre or Standalone host. Standalone host indicates the standalone ESXI host entity in a VMware protection source type. |
+         | Hostname or IP Address | Specify the VCentre hostname or corresponding IP address.    |
+         | Username               | Enter the username of the VCentre.                           |
+         | Password               | Enter the corresponding password of the VCentre.             |
+
+         ![hypervisoroptions](docs/images/hypervisoroptions.png)
+
+      3. Click **Submit**.
+
+### Adding Physical Server to Protection Job
+
+##### Procedure (XAAS)
+
+To add a physical machine instance to a protection job:
+
+1. In the Catalog Dashboard, click **REQUEST** on **Add Physical Server to Protection Job**. 
+   ![addphysicalserver](docs/images/addingphysicalservertoprotectionjob.png)
+
+2. Select the **Cohesity Endpoint** from the drop down list. and click **Submit**.
+
+3. Under **Cohesity Parameters** tab, select **Protection Type** to be **File Based** or **Block Based.**
+   In case of File based, specific volumes of drives can be selected for Protection and in case of Block based, the entire physical machine is protected. 
+   Below is the **Configuration** for ***File Based*** Protection Type:
+   ![configurationtabparams](docs/images/createprotectionjob.png)
+
+   Below is the **Configuration** for ***Block Based*** Protection Type:
+   ![blockbased](docs/images/blockbased.png)
+
+4. Select the corresponding **Physical Server Instance** from the drop down list.
+   **Note**: Only the physical servers that are not protected will be displayed in the drop down. 
+
+5. Only in case of **File based Protection Type**, confirm the drives to be protected in **Protection Path**. 
+   You can also click **Add** icon to add other drives to be protected. 
+   **Note**: If the Protection Type is block based, then the entire physical server is protection and not specific to any drives. 
+
+6. To create a new protection job, click **Yes**. A new tab **Protection Job Config** is displayed. Provide all the configuration details and proceed. 
+   ![params](docs/images/physical.png)
+
+   ![createprotection](docs/images/physical_2.png)
+
+7. To select from existing Protection jobs, choose **No** for **Create New Protection Job** and select the corresponding job from the drop down.
+
+8. Click **Submit**. 
+
 ### Adding an Unprotected VM to Protection Job
 
 ##### Procedure (XAAS)
 
 To add an unprotected VM to a protection job:
 
-1. Log in to vRA using valid credentials. The list of Catalog Items are displayed in the Catalog Dashboard.   
-   Ensure that you have the necessary **Entitlements** to **Cohesity Catalog Items**. 
-   To access **Entitlements**, in vRA go to **Administration > Catalog Management > Entitlements**. 
-2. Click **REQUEST** on **Add Unprotected VM to Protection Job**. 
+1. In the Catalog Dashboard, click **REQUEST** on **Add Unprotected VM to Protection Job**. 
    ![addvm](docs/images/AddVM1.png)
-3. Select the **Cohesity Endpoint** and the **Virtual Machine** from the drop down list.
+2. Select the **Cohesity Endpoint** from the drop down list.
+3. In the **Cohesity Parameters** tab, select the **vCenter** from the drop down and select the specific **Virtual Machines** from the list by moving it from the left pane to the right. 
    **Note**: In the drop down list for Virtual Machines, only the unprotected VMs are displayed. 
-4. Select the **Protection Job** to which the Virtual Machine must be assigned. 
-   ![addunprotectedvm](docs/images/vra4.png)
-5. Click **Submit**.
+4. Choose to create a **New Protection Job** by selecting **Yes/No**. 
+   If you have selected Yes, then a new tab **Protection Job Config** is displayed. 
+   ![unprotectedvmparams](docs/images/addunprotectedvm_1.png)
+5. Configure all the parameters to create a new job, click **Advanced Configurations** to proceed and complete all the configurations.
+   ![params](docs/images/Beforeadvanced.png) 
+   ![advancedconfig](docs/images/addunprotectedvm_2.png)
+6. To select from existing Protection jobs, choose **No** for **Create New Protection Job** and select the corresponding job from the drop down.
+   ![ifNochosen](docs/images/dropdownselection.png)
+7. Click **Submit**.
    You can monitor the progress of the request in the **Deployments** tab.
 
 ### Cloning a Virtual Machine
@@ -384,6 +484,41 @@ You can move a VM to a new protection job as follows.
    ![moveVMtonewprotectionjobparams](docs/images/movevmtonewprotectedXAAS2.png)
 4. Click **Submit**. 
 
+### Removing a Protection Source
+
+To remove a VMware or a physical server as a protection source:
+
+##### Procedure (XAAS)
+
+1. In the Catalog Dashboard, click **REQUEST** on **Remove a Protection Source**.
+   ![removeprotectionsource](docs/images/removeaprotectionsource.png)
+2. Select the **Cohesity Endpoint**, previously configured **Source Environment** (as Physical or VMware) and corresponding **Source Host/IP** from the drop down list.
+   ![paramsforremoveprotectionsource](docs/images/removeprotectionsourceParams.png)
+3. Click **Submit**.  
+   **Note**: If there is already an active Protection Job that is protecting a virtual machine of vCentre, you cannot remove that virtual machine. If you wish to remove the protection source, then either the Protection job must be made inactive or the source must be removed from the Protection job. 
+
+### Removing Physical Server from Protection Job
+
+##### Procedure (XAAS)
+
+To remove a physical server instance from its protection job:
+
+1. In the Catalog Dashboard, click **REQUEST** on **Remove Physical Server from Protection Job**.
+   ![removephysicalserver](docs/images/removephysicalserverfromprotectionjob.png)
+
+2. Select the **Cohesity Endpoint** from the drop down list.
+
+3. Under **Server Config** tab, select the **Physical Machine** and **Protection Job** from the drop down list. 
+   **Note**: 
+
+   - Only those physical machines that are already protected will be displayed in the drop down.
+   - If there is a protection job which has only 1 physical machine associated, then you cannot remove that physical machine from the job.
+      A protection job will always be associated or will always protect at least one Physical machine. 
+
+   ![params](docs/images/paramsforremovingphysicalserver.png)
+
+4. Click **Submit**. 
+
 ### Removing a VM from a Protection Job
 
 ##### Procedure (XAAS)
@@ -396,6 +531,19 @@ To remove a VM from a Protection Job:
 3. Select the Cohesity Parameters such as **Virtual Machine** and the corresponding **Protection Job**. 
    **Note**: In the drop down list for Virtual Machines, only the protected VMs are displayed.
    ![removeVMfromprotectionjobparams](docs/images/removeVMfromprotectionjobparams.png)
+4. Click **Submit**.
+
+### Deleting a Protection Job
+
+##### Procedure (XAAS)
+
+To delete a protection job object:
+
+1. In the Catalog Dashboard, click **REQUEST** on **Delete Protection Job**.
+   ![deleteprotection](docs/images/deleteprotectionjob.png)
+2. Select the **Cohesity Endpoint** and the **Protection Job** that you want to delete from the drop down list. 
+3. Depending on the requirement, select **Yes** to **Delete All Snapshots** or **No** to retain the snapshots (selecting No will delete the protection job while the back up taken for that system will be retained).
+   ![deletesnapshots](docs/images/deleteprotectionjobdetails1.png)
 4. Click **Submit**.
 
 ### Restoring a Virtual Machine
@@ -565,5 +713,3 @@ To update an Email configuration:
 7. Enter the details you want to update and click **Submit**.
    ![SelectEmailtoUpdate](docs/images/SelectEmailtoUpdate.png)
 
-## Feedback
-We love to hear from you. Please send your feedback and suggestions to cohesity-api-sdks@cohesity.com

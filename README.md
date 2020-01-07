@@ -25,10 +25,13 @@ The plugin provides a list of workflows that you can access on the **Workflows**
 |                          | Clone Virtual Machine                                |
 |                          | Move VM to new Protection Job                        |
 |                          | Remove VM/Physical server from Protection Job        |
+|                          | Remove VM Tag from Protection Job                    |
 |                          | Delete Protection Job                                |
 |                          | Restore Virtual Machine                              |
 |                          | Run Protection Job on Demand                         |
+|                          | Generate Reports                                     |
 |                          | Recover Files or Folders                             |
+|                          | Upgrade Cohesity Agent                               |
 
 ### Features
 
@@ -65,7 +68,9 @@ A snapshot of the overall process involved in using the Cohesity vRO plugin is a
 
 | Version | What's New                                                   | Revision Date |
 | ------- | ------------------------------------------------------------ | ------------- |
-| v1.0.4  | This release introduces new workflows to add/remove protection source, add/remove physical server to/from protection job and create/delete protection jobs. | Aug 2019      |
+| v1.0.5  | This release introduces new workflows to Remove VM Tag from Protection Job and to Generate Reports. | Nov 2019      |
+| v1.0.4  | This release introduces the ability to upgrade the Cohesity agent on physical sources. This release also included minor bug fixes. | Oct 2019      |
+| v1.0.3  | This release introduces new workflows to add/remove protection source, add/remove physical server to/from protection job and create/delete protection jobs. | Aug 2019      |
 | v1.0.2  | Second Draft of vRO plugin documentation. The document has been updated with the current procedures to execute workflows. | May 2019      |
 | v1.0.1  | First draft released.                                        | Nov 2018      |
 
@@ -227,7 +232,7 @@ This section describes the details to import the XAAS blueprints.
 
 ##### Procedure
 
-1. Download the Cohesity vRA Blueprint file available in the [releases](https://github.com/cohesity/cohesity-vra-blueprints/releases) section as vRA_Blueprint_{version}.zip.
+1. Download the Cohesity vRA Blueprint file available in the [repository](https://github.com/cohesity/cohesity-vra-blueprints/tree/master/build).  
 2. Launch Cloud Client instance on your local system by executing `bin/cloudclient.bat (for windows) or bin/cloudclient.sh for OSX / Linux`.
    The following screen is displayed.
    ![cloudclient](docs/images/CloudClient.png)
@@ -260,9 +265,9 @@ This section describes the steps you need to perform to configure vRA property d
 3. In the **Design Canvas** page, click the vSphere machine component (highlighted on the top of the page) and click the **Properties** tab. Add the property group **Subscription Cycle**.
    ![Blueprint](docs/images/Blueprint_Cohesity.png)
 4. Click the **Custom Properties** tab.
-5. Add *com.cohesity.endpointName* and *com.cohesity.protectionJobName* and then set **Show in Request** to **Yes**.
-6. Click **SAVE** to save the changes.
+5. Add *com.cohesity.endpointName*, *com.cohesity.protectionJobName*, and *com.cohesity.vmwareSource*, and then set **Show in Request** to **Yes**.
    ![EditBlueprint](docs/images/EditBlueprint.png)
+6. Click **SAVE** to save the changes.
 
 #### Configuring Event Subscription
 
@@ -337,11 +342,15 @@ You can execute the following actions in the Day-2 workflows. These workflows ca
 | [Removing a Protection Source](#removing-a-protection-source) (XAAS) | This section describes the details to remove a VMware or a physical server as a protection source. |
 | [Removing Physical Server from Protection Job](#removing-physical-server-from-protection-job) (XAAS) | This section describes the details to to remove a physical server instance from its protection job. |
 | [Removing a VM from a Protection Job](#removing-a-vm-from-a-protection-job) (XAAS) | This section describes the details to remove a VM from a protection job. |
+| [Removing VM Tag from Protection Job](#removing-vm-tag-from-protection-job) | This section describes the details to unprotect the associated VMware tags. |
 | [Deleting a Protection Job](#deleting-a-protection-job) (XAAS) | This section describes the details to delete a protection job object. |
 | [Restoring a Virtual Machine](#restoring-a-virtual-machine) (XAAS) | This section describes the details to restore a Virtual Machine. |
 | [Executing a Protection Job on Demand](#executing-a-protection-job-on-demand) (XAAS) | This section describes the details to run a protection job on demand. |
 | [Recovering Files or Folders](#recovering-files-or-folders) (XAAS) | This section describes the details to recover a file or a folder. |
+| [Upgrading Cohesity Agent](#upgrading-cohesity-agent) (XAAS) | This section describes the details to upgrade a Cohesity Agent. |
+| [Generating Reports](#generating-reports) (XAAS)             | This section describes the details to email reports.         |
 | [Executing a Protection Job on Demand](#executing-a-protection-job-on-demand-as-resource-action) (Resource Action) | This section describes the details to run a protection job as a Resource Action in vRA. |
+
 
 **Note**: The steps to execute a protection job on demand as a XAAS and a resource action has been captured in this section. All the other workflows can also be similarly executed either as a XAAS or a resource action. 
 
@@ -441,18 +450,23 @@ To add an unprotected VM to a protection job:
 
 1. In the Catalog Dashboard, click **REQUEST** on **Add Unprotected VM to Protection Job**. 
    ![addvm](docs/images/AddVM1.png)
-2. Select the **Cohesity Endpoint** from the drop down list.
-3. In the **Cohesity Parameters** tab, select the **vCenter** from the drop down and select the specific **Virtual Machines** from the list by moving it from the left pane to the right. 
+2. From the **Endpoint Config** tab, select the **Cohesity Endpoint** from the drop down list.
+3. Click **Cohesity Parameters** tab, and select the **vCenter** from the drop down and select the specific **Virtual Machines** to be protected by moving the VMs from left to right pane. 
    **Note**: In the drop down list for Virtual Machines, only the unprotected VMs are displayed. 
-4. Choose to create a **New Protection Job** by selecting **Yes/No**. 
+4. You can also choose to select the **Protect VMware Tags** option. On selecting this option, the VMware tags that are not used by any other protection job are displayed. 
+   **Note**:  
+   - The VMware tags are displayed only if it is assigned to at least one or more VMs. Unassigned VM tags will not be displayed. 
+   - You can also choose to select only the VMware tags and not select any Virtual Machines from the list. 
+   - If you select the Virtual Machines and not select the VMware tags, then only the selected VMs will be protected and the tags will not be protected. 
+5. Choose to create a **New Protection Job** by selecting **Yes/No**. 
    If you have selected Yes, then a new tab **Protection Job Config** is displayed. 
    ![unprotectedvmparams](docs/images/addunprotectedvm_1.png)
-5. Configure all the parameters to create a new job, click **Advanced Configurations** to proceed and complete all the configurations.
+6. Configure all the parameters to create a new job, click **Advanced Configurations** to proceed and complete all the configurations.
    ![params](docs/images/Beforeadvanced.png) 
    ![advancedconfig](docs/images/addunprotectedvm_2.png)
-6. To select from existing Protection jobs, choose **No** for **Create New Protection Job** and select the corresponding job from the drop down.
+7. To select from existing Protection jobs, choose **No** for **Create New Protection Job** and select the corresponding job from the drop down.
    ![ifNochosen](docs/images/dropdownselection.png)
-7. Click **Submit**.
+8. Click **Submit**.
    You can monitor the progress of the request in the **Deployments** tab.
 
 ### Cloning a Virtual Machine
@@ -479,7 +493,7 @@ You can move a VM to a new protection job as follows.
 1. In the Catalog Dashboard, click **REQUEST** on **Move VM to New Protection Job**.
    ![MoveVMtoNewProtectionJob](docs/images/MoveVMtoNewProtectionJobXAAS.png)
 2. Select the **Cohesity Endpoint** from the drop down list.
-3. Select the Cohesity Parameters such as **Virtual Machine**, its **Current Protection Job**, and the **New Protection Job** it must be assigned to. 
+3. Under the Cohesity Parameters section, choose the **vCenter** instance, **Virtual Machine**, the **Current Protection Job**, and **New Protection Job** it must be assigned to. 
    **Note**: In the drop down list for Virtual Machines, only the protected VMs are displayed.
    ![moveVMtonewprotectionjobparams](docs/images/movevmtonewprotectedXAAS2.png)
 4. Click **Submit**. 
@@ -527,11 +541,35 @@ To remove a VM from a Protection Job:
 
 1. In the Catalog Dashboard, click **REQUEST** on **Remove VM from Protection Job**.
    ![RemoveVMfromProjectionJob](docs/images/removeVMfromProtectionJObXAAS.png)
+   
 2. Select the **Cohesity Endpoint** from the drop down list.
-3. Select the Cohesity Parameters such as **Virtual Machine** and the corresponding **Protection Job**. 
+3. Under the Cohesity Parameters section, choose an appropriate **vCenter** instance, a **Virtual Machine** and the corresponding **Protection Job**. 
    **Note**: In the drop down list for Virtual Machines, only the protected VMs are displayed.
+
+3. Select the Cohesity Parameters such as **Virtual Machine** and the corresponding **Protection Job**. 
    ![removeVMfromprotectionjobparams](docs/images/removeVMfromprotectionjobparams.png)
+   
+   **Note** 
+   
+- In the drop down list for Virtual Machines, only the protected VMs are displayed.
+   - If there is a Protection job protecting a single VM, then that VM cannot be unprotected. 
+   
 4. Click **Submit**.
+
+### Removing VM Tag from Protection Job
+
+##### Procedure (XAAS)
+
+To unprotect the VMware tags:
+
+1. In the Catalog Dashboard, click **REQUEST** on **Remove VM Tag from Protection Job**.
+   ![](docs/images/removevmtag.png)
+2. Select the **Cohesity Endpoint** from the drop down list.
+3. Under **Select Cohesity Parameters**, select the **vCenter** from the drop down list. 
+4. Choose the specific tags from the **Tag Node**. On selecting the tag, the protection job that is protecting the tags will be automatically displayed. 
+   **Note**: Only the tags assigned to VMs will be displayed here. 
+   ![](docs/images/removevmwaretags.png)
+5. Click **Submit**.
 
 ### Deleting a Protection Job
 
@@ -613,6 +651,51 @@ To recover a file or folder:
           4. In the **Email Content** field, model text is auto populated in HTML format and you can edit it as per the need.
 10. Click **Submit** to start the workflow execution.
      **Note**: The VM must be powered on for the workflow execution to be successful.
+
+### Upgrading Cohesity Agent
+
+##### Procedure (XAAS)
+
+To upgrade a Cohesity Agent:
+
+1. In the Catalog Dashboard, click **REQUEST** on **Upgrade Cohesity Agent**.
+   ![](docs/images/upgradecohesityagent.png)
+
+2. Select the **Cohesity Endpoint** from the drop down list.
+
+3. Select the **Physical Machine**.
+
+   The physical machines already registered will be displayed in the list. The **Status** and the **Upgradability** of the agent are updated accordingly. The Status reflects the current status of the agent and the upgradability indicates if the agent can be upgraded to any newer version available.   
+   ![](docs/images/upgradeagent_params.png)
+
+4. If multiple option is selected, then multiple physical machines can be added.
+   **Note**: The **Status** and the **Upgradability** fields will not be available when multiple option is selected. 
+   ![](docs/images/Upgrademultiple.png)
+
+5. Click **Submit**.
+**Note**: Status of the agent upgrade request cannot be monitored through the workflow if multiple physical sources are selected.
+
+### Generating Reports
+
+##### Procedure (XAAS)
+
+To generate a report that provides an overview of the protection jobs:
+
+1. In the Catalog Dashboard, click **REQUEST** on **Generate Report**.
+   ![](docs/images/generatereport.png)
+2. Select the **Cohesity Connection** which is the cluster from where the report must be generated. 
+3. Under **Report Filters**, configure the **Email  Recipients** IDs to which the generated report will be emailed. 
+4. Specify the format of the generated report (html, csv).
+   **Note**: If CSV is specified, then the generated report will be sent as an attachment in the email. 
+5. Choose the specific **Registered Source**. 
+   Note: If left blank, all the registered sources in that cluster will be considered.
+6. Choose any specific Protection Job or if left blank, all the protection jobs will be considered.  
+7. Specify the Report Time Span.
+   **Note**: If you configure a value of 7, then starting from the current day, the report will be generated for the time span of the last seven days. 
+   ![](docs/images/generatedreportparams.png)
+8. Click **Submit**.
+   On success, the report will be emailed to the specified Email ID. 
+
 
 ### Executing a Protection Job on Demand as Resource Action
 

@@ -232,7 +232,7 @@ This section describes the details to import the XAAS blueprints.
 
 ##### Procedure
 
-1. Download the Cohesity vRA Blueprint file available in the [repository](https://github.com/cohesity/cohesity-vra-blueprints/tree/master/build).  
+1. Download the Cohesity vRA Blueprint file available in the [repository](https://github.com/cohesity/cohesity-vra-blueprints/releases).  
 2. Launch Cloud Client instance on your local system by executing `bin/cloudclient.bat (for windows) or bin/cloudclient.sh for OSX / Linux`.
    The following screen is displayed.
    ![cloudclient](docs/images/CloudClient.png)

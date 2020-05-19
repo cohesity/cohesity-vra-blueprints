@@ -10,35 +10,49 @@ You can download the vRealize Orchestrator Plugins and workflows from [VMware So
 
 The plugin provides a list of workflows that you can access on the **Workflows** tab of the Orchestrator client. The plugin contains packages of workflows and actions that you can run on the objects in the inventory to automate the typical use cases of the integrated product.	
 
-| Custom Objects           | Workflows                                            |
-| ------------------------ | ---------------------------------------------------- |
-| Initial Configuration    | Add a Cohesity Endpoint                              |
-|                          | Remove a Cohesity Endpoint                           |
-|                          | Update a Cohesity Endpoint                           |
-|                          | Add an Email Configuration                           |
-|                          | Remove an Email Configuration                        |
-|                          | Update an Email Configuration                        |
-| Day-1 Workflows          | Add multiple VMs to Protection Job                   |
-|                          | Remove VM from all Protection Job                    |
-| Protection Job Workflows | Add Unprotected VM/Physical server to Protection Job |
-|                          | Add Protection Source                                |
-|                          | Clone Virtual Machine                                |
-|                          | Move VM to new Protection Job                        |
-|                          | Remove VM/Physical server from Protection Job        |
-|                          | Remove VM Tag from Protection Job                    |
-|                          | Delete Protection Job                                |
-|                          | Restore Virtual Machine                              |
-|                          | Run Protection Job on Demand                         |
-|                          | Generate Reports                                     |
-|                          | Recover Files or Folders                             |
-|                          | Upgrade Cohesity Agent                               |
+| Custom Objects           | Workflows                                            | Privileges                    |
+| ------------------------ | ---------------------------------------------------- | ----------------------------- |
+| Initial Configuration    | Add a Cohesity Endpoint                              |                               |
+|                          | Remove a Cohesity Endpoint                           |                               |
+|                          | Update a Cohesity Endpoint                           |                               |
+|                          | Add an Email Configuration                           |                               |
+|                          | Remove an Email Configuration                        |                               |
+|                          | Update an Email Configuration                        |                               |
+| Day-1 Workflows          | Add multiple VMs to Protection Job                   |                               |
+|                          | Remove VM from all Protection Job                    |                               |
+| Protection Job Workflows | Add Unprotected VM/Physical server to Protection Job | Read Cohesity Storage Domains |
+|                          |                                                      | View Protection Groups        |
+|                          |                                                      | View Protection Policies      |
+|                          |                                                      | Manage Protection Groups      |
+|                          | Add Protection Source                                | Manage Sources                |
+|                          | Delete Protection Group                              | Manage Protection Groups      |
+|                          |                                                      | View Protection Policies      |
+|                          | Clone Virtual Machine                                | View Clone Tasks              |
+|                          |                                                      | Manage Clone Tasks            |
+|                          | Move VM to new Protection Source                     | Manage Protection Groups      |
+|                          |                                                      | View Protection Groups        |
+|                          | Remove VM/Physical server from Protection Source     | Manage Protection Groups      |
+|                          |                                                      | View Protection Policies      |
+|                          | Remove VM Tag from Protection Job                    | Manage Protection Groups      |
+|                          |                                                      | View Protection Policies      |
+|                          | Delete Protection Group                              | Delete Protection Group       |
+|                          | Restore Virtual Machine                              | View Protection Groups        |
+|                          |                                                      | Manage Recover Tasks          |
+|                          |                                                      | View Recover Tasks            |
+|                          | Run Protection Job on Demand                         | View Protection Groups        |
+|                          |                                                      | Protection Group Operator     |
+|                          | Generate Reports                                     | View Protection Groups        |
+|                          |                                                      | Reporting                     |
+|                          | Recover Files or Folders                             | View Protection Groups        |
+|                          |                                                      | Manage Recover Tasks          |
+|                          |                                                      | View Recover Tasks            |
 
 ### Features
 
 The vRO plugin provides an inventory of objects that you can access on the Inventory tab of the Orchestrator client, along with packages of workflows and actions that you can run on these objects in the inventory to automate the typical use cases of the integrated product.
 
 - **Managing Cohesity Data Operations**: Allows vRO user to perform operations for backups, data protection, restore and clone on Cohesity sources such as Virtual Machines and vCenters.
-- **Managing Data with Multiple ESXi Boxes**: Move protected VM/data within protection jobs and also clone and restore over different ESXi boxes.
+- **Managing Data with Multiple ESXi Boxes**: Move protected VM/data within protection groups and also clone and restore over different ESXi boxes.
 - **Multiple Platform Support**: Management of multiple Cohesity DataPlatform setups.
 
 
@@ -51,6 +65,13 @@ The vRO plugin provides an inventory of objects that you can access on the Inven
 | Cohesity DataPlatform | 6.x or later | Cohesity                       |
 | Web browsers          | Latest       | Mozilla Firefox, Google Chrome |
 
+### vRA - Cohesity Compatibility Matrix
+
+| Plugin Release Version                        | vRA Version   | Cohesity Cluster Version |
+| --------------------------------------------- | ------------- | ------------------------ |
+| v1.0.2, v1.0.4, v1.0.5, v1.0.6, v1.0.7,v2.0.1 | 7.5 or higher | 6.3 or higher            |
+| v2.1.1                                        | 7.5 or higher | 6.5, 6.4.1c              |
+
 ### Process Overview
 
 A snapshot of the overall process involved in using the Cohesity vRO plugin is as follows:
@@ -62,15 +83,17 @@ A snapshot of the overall process involved in using the Cohesity vRO plugin is a
 3. [Configure vRA](#configuring-vra)
    1. [Importing Blueprints](#importing-blueprints)
    2. [Configuring Day 1 Workflows](#configuring-day-1-workflows)
-4. [Execute Protection Job Workflows](#executing-protection-job-workflows)
+4. [Execute Protection Group Workflows](#executing-protection-group-workflows)
 
 ### What's New
 
 | Version | What's New                                                   | Revision Date |
 | ------- | ------------------------------------------------------------ | ------------- |
-| v1.0.5  | This release introduces new workflows to Remove VM Tag from Protection Job and to Generate Reports. | Nov 2019      |
+| v2.1.1  | This release introduces the Recovery method in Recover Files or Folders workflow. | May 2020      |
+| v2.0.1  | This release describes details about the vRA workflow privileges. | Apr 2020      |
+| v1.0.5  | This release introduces new workflows to Remove VM Tag from Protection Group and to Generate Reports. | Nov 2019      |
 | v1.0.4  | This release introduces the ability to upgrade the Cohesity agent on physical sources. This release also included minor bug fixes. | Oct 2019      |
-| v1.0.3  | This release introduces new workflows to add/remove protection source, add/remove physical server to/from protection job and create/delete protection jobs. | Aug 2019      |
+| v1.0.3  | This release introduces new workflows to add/remove protection source, add/remove physical server to/from protection group and create/delete protection groups. | Aug 2019      |
 | v1.0.2  | Second Draft of vRO plugin documentation. The document has been updated with the current procedures to execute workflows. | May 2019      |
 | v1.0.1  | First draft released.                                        | Nov 2018      |
 
@@ -87,7 +110,7 @@ A snapshot of the overall process involved in using the Cohesity vRO plugin is a
 
 This section describes the detailed steps to install the Cohesity vRO plugin.
 
-**Note**: If the Cohesity vRO plugin has already been installed and must be upgraded, you must first [remove](#removing-the-plugin)) the existing plugin and then install the new Cohesity vRO plugin. 
+**Note**: If the Cohesity vRO plugin has already been installed and must be upgraded, you must first [remove](#removing-the-plugin) the existing plugin and then install the new Cohesity vRO plugin. 
 
 ##### Procedure
 
@@ -252,7 +275,7 @@ This section describes the details to import the XAAS blueprints.
 
 You need to perform the following only if you have to configure vRA for Day-1 workflows. Else, this section can be skipped. 
 
-By configuring Day 1 Workflows, the VMs are added to the specified protection job when newly provisioned from VRA or removed from the protection job when the VM is destroyed. 
+By configuring Day 1 Workflows, the VMs are added to the specified protection job when newly provisioned from VRA or removed from the protection group when the VM is destroyed. 
 
 #### Assigning Properties to Blueprint
 
@@ -326,9 +349,9 @@ To remove VM from Protection Job when VM is destroyed:
    **Note**: Here, **Cohesity Provision VM** is given as an example. This name could differ based on the client's configuration. 
    ![EventSubscription](docs/images/EventSubscription9.png)
 
-## Executing Protection Job Workflows
+## Executing Protection Group Workflows
 
-You can execute the following actions in the Day-2 workflows. These workflows can be executed as a XAAS or resource actions. 
+You can execute the following actions in the Day-2 workflows. These workflows can be executed as a XAAS or resource actions.  To execute the workflow, you need certain privileges. See [Workflow Execution Privileges](#workflow-execution-privileges) for details. 
 
 #### In This Section
 
@@ -336,7 +359,7 @@ You can execute the following actions in the Day-2 workflows. These workflows ca
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | [Adding a Protection Source](#adding-a-protection-source) (XAAS) | This section describes the details to add a new physical or hypervisor type protection source. |
 | [Adding Physical Server to Protection Job](#adding-physical-server-to-protection-job) (XAAS) | This section describes the details to add a physical machine instance to a protection job |
-| [Adding an unprotected VM to protection job](#adding-an-unprotected-vm-to-protection-job) (XAAS) | This section describes the details to add an unprotected VM to a Protection Job. |
+| [Adding an unprotected VM to protection group](#adding-an-unprotected-vm-to-protection-group) (XAAS) | This section describes the details to add an unprotected VM to a Protection Group. |
 | [Cloning a VM](#cloning-a-virtual-machine) (XAAS)            | This section describes the details to clone a Virtual Machine. |
 | [Moving a VM to a New Protection Job](#moving-a-vm-to-a-new-protection-job) (XAAS) | This section describes the details to move a VM to a new protection job. |
 | [Removing a Protection Source](#removing-a-protection-source) (XAAS) | This section describes the details to remove a VMware or a physical server as a protection source. |
@@ -442,17 +465,17 @@ To add a physical machine instance to a protection job:
 
 8. Click **Submit**. 
 
-### Adding an Unprotected VM to Protection Job
+### Adding an Unprotected VM to Protection Group
 
 ##### Procedure (XAAS)
 
 To add an unprotected VM to a protection job:
 
-1. In the Catalog Dashboard, click **REQUEST** on **Add Unprotected VM to Protection Job**. 
+1. In the Catalog Dashboard, click **REQUEST** on **Add Unprotected VM to Protection Group**. 
    ![addvm](docs/images/AddVM1.png)
 2. From the **Endpoint Config** tab, select the **Cohesity Endpoint** from the drop down list.
 3. Click **Cohesity Parameters** tab, and select the **vCenter** from the drop down and select the specific **Virtual Machines** to be protected by moving the VMs from left to right pane. 
-   **Note**: In the drop down list for Virtual Machines, only the unprotected VMs are displayed. 
+   **Note**: In the drop down list for Virtual Machines, only the unprotected VMs are displayed. However, to change this default behaviour and to allow VMs to be protected by multiple jobs, you can log in to vRealize Orchestrator, navigate to find the Cohesity library > Protection Job > Add unprotected VM to Protection Group and edit the workflow. Search for **allowDuplicates** attribute and set the field to **Yes**. 
 4. You can also choose to select the **Protect VMware Tags** option. On selecting this option, the VMware tags that are not used by any other protection job are displayed. 
    **Note**:  
    - The VMware tags are displayed only if it is assigned to at least one or more VMs. Unassigned VM tags will not be displayed. 
@@ -625,15 +648,16 @@ To recover a file or folder:
 1. In the Catalog Dashboard, click **REQUEST** on **Recover Files or Folders**.
      ![recoverfilesandfolders](docs/images/recoverfilesandfoldersXAAS.png)
 2. Select the **Cohesity Endpoint** from the drop down list.
-3. In the **Search Virtual Machine Name** field, enter the virtual machine from which you want to recover a file or folder. A list of backup candidates is populated based on the selection.
-4. In the **Backup Candidates** field, select the required VM from the populated list.
-5. In the **Protection Job** field, select the required protection job from the populated list.
-6. In the **OS Type** field, select either Linux or Windows based on the chosen VM so as to
-     display the file or folder path in proper format.
+3. Click **Backup Candidate Config** tab, select the **Environment** from the drop down list.
+4. In the **Search Virtual Machine Name** field, enter the virtual machine from which you want to recover a file or folder. A list of backup candidates is populated based on the selection.
+5. Select the VM name as **Backup Candidates** and the **Protection Group** from the dropdown list.
+6. Select the **OS Type** from the drop down list.
 7. In the **User Name** field, provide user name for the selected VM.
 8. In the **Password** field, provide password for the selected VM.
-     ![recoverfilesandfoldersparams1](docs/images/recoverfilesandfoldersparams1.png)
-9. In **Selection Recover Properties** tab:
+9. Select the **Recovery Method** as Agent Based or VMware Tools. The VMware Tools option is supported and effective only from Cohesity cluster version 6.5 or higher.
+     **Note**: The OS type and recovery method fields are related. If the OS type is Windows, then the recovery method is populated as Agent Based which is also the recommended recovery method for Windows. For other OS types, the recommended recovery method is VMware Tools.
+     ![](docs/images/recoverymethod.png)
+10. In **Recovery File Config** tab:
      1. In **Files or Folders** field, select option to search for files, folders or both.
      2. In the **Search Files or Folders Name** field, you can provide the search text to fetch the appropriate file or folder or both from the selected protection job. The search text can be a prefix or suffix or mid name of the file or folder name.
      3. Search responses such as file or folder path or both is listed in the **Files** **Backup Candidates** field.
@@ -642,15 +666,13 @@ To recover a file or folder:
      6. Select **Yes** or **No** for **Overwrite Existing File/Folder** parameter. If **Yes** is selected, file or folder is overwritten, else a new folder is created to recover the file or folder.
      7. Select **Yes** or **No** for **Continue on Error** parameter. If **Yes** is selected, recovery is continued even when there is any error, else recovery stops when there is an error.
      8. Select **Yes** or **No** for **Preserve Attributes** parameter.
-          ![recoverfilesandfoldersparams2](docs/images/recoverfilesandfoldersparams2.png)
      9. Select **Yes** or **No** for **Send Email Notification**. If **Yes** is selected, the **Mail Configuration to Send Notification** tab is enabled to choose Email connection and other related parameters.
-          ![recoverfilesandfoldersparams3](docs/images/recoverfilesandfoldersparams3.png)
           1. In the **Email connection** field, select the Email connection which is already configured.
           2. In the **Recipients** field, add one or more Email recipients.
           3. In the **Email Subject** field, subject is auto populated. However, it can be edited.
           4. In the **Email Content** field, model text is auto populated in HTML format and you can edit it as per the need.
-10. Click **Submit** to start the workflow execution.
-     **Note**: The VM must be powered on for the workflow execution to be successful.
+11. Click **Submit** to start the workflow execution.
+       **Note**: The VM must be powered on for the workflow execution to be successful.
 
 ### Upgrading Cohesity Agent
 

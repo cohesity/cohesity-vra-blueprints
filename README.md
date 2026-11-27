@@ -11,8 +11,16 @@ The **Cohesity vRealize Orchestrator (vRO)** Plugin provides self-service workfl
  - [Download](https://github.com/cohesity/cohesity-vra-blueprints/releases)
  - [Installation](https://docs.cohesity.com/api/integrations/vra/install-vro-plugin.htm)
  - [Documentation](https://docs.cohesity.com/api/integrations/vra/concept-vro-plugin-deployment-guide.htm)
+ - [Supported Platforms](#platforms)
  - [Features](#features)
  - [Suggestions and Feedback](#suggest)
+
+## <a name="platforms"></a> Supported Platforms: :white_check_mark:
+
+The latest release (v2.7.2) supports:
+
+- **VMware Cloud Foundation (VCF) 9.x**: VCF Automation and VCF Operations Orchestrator 9.x (supported from v2.7.2)
+- **VMware vRealize Automation / vRealize Orchestrator 8.x**
 
 ## <a name="features"></a> Features: :bulb:
 The vRO plugin provides an inventory of objects that you can access on the Inventory tab of the Orchestrator client, along with packages of workflows and actions that you can run on these objects in the inventory to automate the typical use cases of the integrated product.

@@ -19,7 +19,7 @@ The **Cohesity vRealize Orchestrator (vRO)** Plugin provides self-service workfl
 
 The latest release (v2.7.2) supports:
 
-- **VMware Cloud Foundation (VCF) 9.x**: VCF Automation and VCF Operations Orchestrator 9.x (supported from v2.7.2)
+- **VMware Cloud Foundation (VCF) 9.1** (9.1.0 and 9.1.1): VCF Automation and VCF Operations Orchestrator 9.1 (supported from v2.7.2)
 - **VMware vRealize Automation / vRealize Orchestrator 8.x**
 
 ## <a name="features"></a> Features: :bulb:
